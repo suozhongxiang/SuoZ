@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="checkbox" id="quan"> 全选 <button id="fan"> 反选</button>
+  <ul>
+    <Li> <input type="checkbox" id="zi"> 张三</Li>
+    <Li> <input type="checkbox" id="zi"> 李四</Li>
+    <Li> <input type="checkbox" id="zi"> 马子</Li>
+  </ul>
+  <!-- 要求1：点击全选的checkbox，让下面所有人名前的checkbox的选中状态和全选的一致
+
+要求2：点击反选按钮，所有人名前的checkbox的选中状态取反
+
+要求3：点击所有人名前的checkbox，判断全选的选中状态
+
+要求4：代码规范 -->
+  <script src="./jquery.js"></script>
+  <script>
+    $(function () {
+      $('#quan').change(function () {
+        var index = $(this).prop('checked')
+        $('ul #zi').prop('checked', index)
+
+      })
+
+      $('ul #zi').change(function () {
+        if ($('ul #zi:checked').length == $('ul #zi').length) {
+          $('#quan').prop('checked', true)
+        } else {
+          $('#quan').prop('checked', false)
+        }
+
+      })
+
+      $('#fan').on('click', function () {
+
+        $('ul #zi').each(function (i, ele) {
+          if (ele.checked) {
+            ele.checked = false
+          } else {
+            ele.checked = true
+          }
+        })
+        $('ul #zi').change() // 为了让全选按钮也同步
+      })
+
+    })
+  </script>
+</body>
+
+</html>

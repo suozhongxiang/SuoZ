@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    //     先找出字符串 '85872637471533203552943982' 中出现次数最多的数字及次数，然后去重后并排序（不准使用sort），使得到结果为 '0123456789'。
+
+    // 要求1：找到出现最多的数字和出现的次数
+
+    // 要求2：去除字符串中重复的数字
+
+    // 要求3：对去重后的字符串排序
+
+    // 要求4：代码规范
+    var str = '85872637471533203552943982'
+
+
+    // 1.找到出现最多的数字和出现的次数
+    var o = {}
+    for (var i = 0; i < str.length; i++) {
+      if (o[str.charAt(i)]) {
+        o[str.charAt(i)] += 1
+      } else {
+        o[str.charAt(i)] = 1
+      }
+    }
+
+    var max = 0 // 记录最大数字
+    var num = 0 //记录出现次数
+    for (var k in o) {
+      if (o[k] > num) {
+        max = k
+        num = o[k]
+      }
+    }
+    console.log('出现最多的数字是' + max + '   它出现的次数是' + num + '次')
+
+
+    // 2.去除字符串中重复的数字
+    var newStr = ''
+    for (var i = 0; i < str.length; i++) {
+      if (newStr.indexOf(str.charAt(i)) == -1) {
+        newStr = newStr + str.charAt(i)
+      }
+
+    }
+    console.log('去重后为' + newStr);
+    //3.对去重后的字符串排序
+    newStr = newStr.split('')
+    for (var i = 0; i < newStr.length - 1; i++) {
+      for (var j = 0; j < newStr.length - i - 1; j++) {
+        if (newStr[j] - 0 > newStr[j + 1] - 0) {
+          var tem = newStr[j]
+          newStr[j] = newStr[j + 1]
+          newStr[j + 1] = tem
+        }
+
+      }
+
+    }
+
+
+    newStr = newStr.join('')
+    console.log('排序后为' + newStr);
+  </script>
+</body>
+
+</html>

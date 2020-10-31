@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="margin-bottom: 15px;">
+    <input type="text" id="username" placeholder="请输入姓名">
+    <input type="text" id="age" placeholder="请输入性别">
+    <input type="text" id="sex" placeholder="请输入年龄">
+    <input type="button" value="提交" id="btn">
+  </div>
+  <table border="1" width="540">
+    <thead>
+      <tr>
+        <td>姓名</td>
+        <td>性别</td>
+        <td>年龄</td>
+        <td>操作</td>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      <script>
+        var btn = document.querySelector('#btn')
+        var username = document.querySelector('#username')
+        var age = document.querySelector('#age')
+        var sex = document.querySelector('#sex')
+        var tbody = document.querySelector('tbody')
+        btn.addEventListener('click', () => {
+          var usernameV = username.value,
+            ageV = age.value,
+            sexV = sex.value,
+            data = getData()
+          data.push({ username: usernameV, age: ageV, sex: sexV })
+          saveData(data)
+          load()
+        })
+        load()
+        function getData() {
+          var data = localStorage.getItem('student')
+          if (data) {
+            return JSON.parse(data)
+          } else {
+            return []
+          }
+        }
+
+        function saveData(data) {
+          localStorage.setItem('student', JSON.stringify(data))
+        }
+
+        function load() {
+          var data = getData()
+          var inHtml = ''
+          data.forEach((item, i) => {
+            inHtml += '<tr id="' + i + '"><td>' + item.username + '</td><td>' + item.sex + '</td><td>' + item.age + '</td><td><a href="javascript:;">删除</a></td></tr>'
+          })
+          tbody.innerHTML = inHtml
+
+          var as = tbody.querySelectorAll('a')
+
+          for (var i = 0; i < as.length; i++) {
+            as[i].addEventListener('click', function () {
+              var index = this.parentNode.parentNode.getAttribute('id')
+              var data = getData()
+              data.splice(index, 1)
+              saveData(data)
+              load()
+            })
+          }
+        }
+      </script>
+    </tbody>
+  </table>
+</body>
+
+</html>

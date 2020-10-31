@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <input type="checkbox" id="quan"> 全选 <button id="fan"> 反选</button>
+  <ul>
+    <Li> <input type="checkbox" id="zi"> 张三</Li>
+    <Li> <input type="checkbox" id="zi"> 李四</Li>
+    <Li> <input type="checkbox" id="zi"> 马子</Li>
+  </ul>
+  <script src="./18/jquery.js"></script>
+  <script>
+    $(function () {
+
+      $('#quan').on('change', function () {
+        var flag = $(this).prop('checked')
+        $('ul #zi').prop('checked', flag)
+      })
+
+      $('ul #zi').on('change', function () {
+        if ($('ul #zi:checked').length === $('ul #zi').length) {
+          $('#quan').prop('checked', true)
+        } else {
+          $('#quan').prop('checked', false)
+        }
+      })
+
+
+      $('#fan').on('click', function () {
+        $('ul #zi').each(function (i, ele) {
+          if ($(ele).prop('checked')) {
+            $(ele).prop('checked', false)
+          } else {
+            $(ele).prop('checked', true)
+          }
+        })
+        $('ul #zi').change()
+      })
+
+    })
+  </script>
+</body>
+
+</html>
